@@ -1,0 +1,13 @@
+{
+    "name": "nikoutel/helionconfig",
+    "authors": [
+        {
+            "name": "Nikos Koutelidis",
+            "email": "nikoutel@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"Nikoutel\\HelionConfig\\": "src/"}
+    }
+}

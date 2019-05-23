@@ -2,9 +2,9 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
-class JSON implements ConfigType
+class JSON implements ConfigTypeInterface
 {
-    public function getConfig() {
+    public function getConfig($configSrc) {
         return 'JSON getConfig() called!';
     }
 }

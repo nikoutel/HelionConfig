@@ -2,9 +2,9 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
-class INI implements ConfigType
+class INI implements ConfigTypeInterface
 {
-    public function getConfig() {
+    public function getConfig($configSrc) {
         return 'INI getConfig() called!';
     }
 }

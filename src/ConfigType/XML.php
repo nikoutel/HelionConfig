@@ -2,9 +2,9 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
-class XML implements ConfigType
+class XML implements ConfigTypeInterface
 {
-    public function getConfig() {
+    public function getConfig($configSrc) {
         return 'XML getConfig() called!';
     }
 }

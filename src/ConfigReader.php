@@ -2,17 +2,17 @@
 
 namespace Nikoutel\HelionConfig;
 
-use Nikoutel\HelionConfig\ConfigType\ConfigType;
+use Nikoutel\HelionConfig\ConfigType\ConfigTypeInterface;
 
 class ConfigReader
 {
     private $type;
 
-    public function __construct(ConfigType $configType) {
+    public function __construct(ConfigTypeInterface $configType) {
         $this->type = $configType;
     }
 
-    public function getConfig() {
-        return $this->type->getConfig();
+    public function getConfig($configSrc) {
+        return $this->type->getConfig($configSrc);
     }
 }

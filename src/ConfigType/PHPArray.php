@@ -2,9 +2,9 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
-class PHPArray implements ConfigType
+class PHPArray implements ConfigTypeInterface
 {
-    public function getConfig() {
+    public function getConfig($configSrc) {
         return 'PHPArray getConfig() called!';
     }
 }

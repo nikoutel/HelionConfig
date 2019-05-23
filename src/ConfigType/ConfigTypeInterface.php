@@ -3,7 +3,7 @@
 namespace Nikoutel\HelionConfig\ConfigType;
 
 
-interface ConfigType
+interface ConfigTypeInterface
 {
-    public function getConfig();
+    public function getConfig($configSrc);
 }

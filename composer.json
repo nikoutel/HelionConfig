@@ -6,8 +6,13 @@
             "email": "nikoutel@gmail.com"
         }
     ],
-    "require": {},
     "autoload": {
         "psr-4": {"Nikoutel\\HelionConfig\\": "src/"}
+    },
+    "require": {
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "nikoutel/phpdebugr": "^1.1"
     }
 }

@@ -1,0 +1,65 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "4d8077e7b3b517ea83fa2a3da61740f9",
+    "packages": [],
+    "packages-dev": [
+        {
+            "name": "nikoutel/phpdebugr",
+            "version": "v1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikoutel/PHPDebugr.git",
+                "reference": "f6c2655ffd2c21cc451e52737e84ff28697624f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikoutel/PHPDebugr/zipball/f6c2655ffd2c21cc451e52737e84ff28697624f3",
+                "reference": "f6c2655ffd2c21cc451e52737e84ff28697624f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "suggest": {
+                "ext-mbstring": "Allows multibyte characters to be used in log filenames"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nikoutel\\Debugr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nikos Koutelidis",
+                    "email": "nikoutel@gmail.com"
+                }
+            ],
+            "description": "A debugging tool for inspecting variables.",
+            "keywords": [
+                "console",
+                "debugger",
+                "debugging",
+                "logging"
+            ],
+            "time": "2019-04-30T10:19:55+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "ext-curl": "*"
+    },
+    "platform-dev": []
+}

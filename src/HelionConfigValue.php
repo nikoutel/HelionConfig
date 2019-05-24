@@ -15,4 +15,14 @@ class HelionConfigValue
         $this->attributes = $attributes;
     }
 
+    public function asArray() {
+        return $this->castToArray($this);
+    }
+
+    private function castToArray($helionConfigValueObject) {
+        if (is_scalar($helionConfigValueObject)) {
+            return $helionConfigValueObject;
+        }
+        return array_map(array($this, 'castToArray'), (array)$helionConfigValueObject);
+    }
 }

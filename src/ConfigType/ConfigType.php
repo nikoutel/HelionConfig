@@ -4,6 +4,8 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 class ConfigType
 {
+    protected $configRootName = 'configRoot';
+
     public function getConfigString($configSrc) {
         if (file_exists($configSrc)) {
             return file_get_contents($configSrc);

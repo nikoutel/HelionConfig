@@ -2,7 +2,8 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
-final Class ConfigTypeOptions {
+final Class ConfigTypeOptions
+{
 
     const XML = 'XML';
     const INI = 'INI';

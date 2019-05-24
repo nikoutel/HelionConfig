@@ -12,7 +12,7 @@ class HelionConfig
             $namespacedType = $this->configTypeNS . $type;
             return new ConfigReader(new $namespacedType);
         } else {
-            throw new \InvalidArgumentException();
+            throw new \InvalidArgumentException("$type is not a valid ConfigType!");
         }
     }
 

@@ -10,7 +10,7 @@ class ConfigType
 
     public function getConfigValue($name, HelionConfigValue $helionConfig) {
 
-        $sectionSeparator = '.';
+        $sectionSeparator = SECTION_SEPARATOR;
         $nameParts = explode($sectionSeparator, $name);
         foreach ($nameParts as $v) {
             if (array_key_exists($v, $helionConfig->value)) {

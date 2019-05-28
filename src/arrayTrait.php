@@ -14,7 +14,7 @@ trait arrayTrait
     }
 
     private function flattenArray($helionConfigArray, $sectionPrefix = '') {
-        $sectionSeparator = '.';
+        $sectionSeparator = SECTION_SEPARATOR;
         $helionConfigArrayFlatt = array();
         foreach ($helionConfigArray as $key => $value) {
             if ($key == 'name') {

@@ -2,9 +2,28 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
+use Nikoutel\HelionConfig\HelionConfigValue;
+
 class ConfigType
 {
     protected $configRootName = 'configRoot';
+
+    public function getConfigValue($name, HelionConfigValue $helionConfig) {
+
+        $sectionSeparator = '.';
+        $nameParts = explode($sectionSeparator, $name);
+        foreach ($nameParts as $v) {
+            if (array_key_exists($v, $helionConfig->value)) {
+                $helionConfig = $helionConfig->value[$v];
+            } else {
+                return new HelionConfigValue('Error', "$v not found!");
+            }
+        }
+        if (is_array($helionConfig->value)) {
+            return $helionConfig;
+        }
+        return $helionConfig->value;
+    }
 
     public function getConfigString($configSrc) {
         if (file_exists($configSrc)) {

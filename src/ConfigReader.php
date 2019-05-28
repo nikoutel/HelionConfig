@@ -15,4 +15,8 @@ class ConfigReader
     public function getConfig($configSrc) {
         return $this->type->getConfig($configSrc);
     }
+
+    public function getConfigValue($name, HelionConfigValue $helionConfigValue) {
+        return $this->type->getConfigValue($name, $helionConfigValue);
+    }
 }

@@ -7,7 +7,7 @@ class HelionConfig
     private $configTypeNS = __NAMESPACE__ . '\ConfigType\\';
 
     public function getConfigReader($type) {
-        define('SECTION_SEPARATOR', '.');
+        !defined('SECTION_SEPARATOR') && define('SECTION_SEPARATOR', '.');
         if (in_array($type, $this->listConfigTypeOptions(true))) {
             $namespacedType = $this->configTypeNS . $type;
             return new ConfigReader(new $namespacedType);

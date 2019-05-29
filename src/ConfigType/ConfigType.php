@@ -8,6 +8,21 @@ class ConfigType
 {
     protected $configRootName = 'configRoot';
 
+    public function getConfig($configSrc) {
+
+        try {
+            $configString = $this->getConfigString($configSrc);
+        } catch (\ErrorException $e) {
+            return new HelionConfigValue('Error', $e->getMessage());
+        }
+        try {
+            $helionConfig = $this->parseConfigString($configString);
+        } catch (\UnexpectedValueException $e) {
+            return new HelionConfigValue('Error', $e->getMessage());
+        }
+        return $helionConfig;
+    }
+
     public function getConfigValue($name, HelionConfigValue $helionConfig) {
 
         $sectionSeparator = SECTION_SEPARATOR;

@@ -7,27 +7,12 @@ use Nikoutel\HelionConfig\HelionConfigValue;
 class INI extends ConfigType implements ConfigTypeInterface
 {
 
-    public function getConfig($configSrc) {
-
-        try {
-            $configString = $this->getConfigString($configSrc);
-        } catch (\ErrorException $e) {
-            return new HelionConfigValue('Error', $e->getMessage());
-        }
-        try {
-            $helionConfig = $this->parseConfigString($configString);
-        } catch (\UnexpectedValueException $e) {
-            return new HelionConfigValue('Error', $e->getMessage());
-        }
-        return $helionConfig;
-    }
-
     public function parseConfigString($configString) {
-        $iniString = parse_ini_string($configString, true);
-        if ($iniString === false || empty($iniString)) {
+        $iniArray = parse_ini_string($configString, true);
+        if ($iniArray === false || empty($iniArray)) {
             throw new \UnexpectedValueException('INI format error!');
         }
-        $helionConfigValue = $this->toHelionConfigValue($iniString, $this->configRootName);
+        $helionConfigValue = $this->toHelionConfigValue($iniArray, $this->configRootName);
         return $helionConfigValue;
     }
 

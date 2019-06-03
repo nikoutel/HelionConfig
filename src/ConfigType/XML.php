@@ -12,7 +12,7 @@ class XML extends ConfigType implements ConfigTypeInterface
             $simpleXMLElement = new \SimpleXMLElement($configString);
         } catch (\Exception $e) {
             $xmlError = ' - ';
-            foreach(libxml_get_errors() as $error) {
+            foreach (libxml_get_errors() as $error) {
                 $xmlError .= $error->message;
             }
             throw new \UnexpectedValueException('XML format error! ' . $e->getMessage() . $xmlError);
@@ -22,6 +22,12 @@ class XML extends ConfigType implements ConfigTypeInterface
     }
 
     private function toHelionConfigValue(\SimpleXMLElement $simpleXMLElement) {
+        $innerHelionConfigValueIn = $this->toInnerHelionConfigValue($simpleXMLElement);
+        $helionConfigValue = new HelionConfigValue($this->configRootName, $innerHelionConfigValueIn);
+        return $helionConfigValue;
+    }
+
+    private function toInnerHelionConfigValue(\SimpleXMLElement $simpleXMLElement) {
         $children = array();
         $attributes = array();
 
@@ -58,9 +64,9 @@ class XML extends ConfigType implements ConfigTypeInterface
                         if (!is_array($children[$childName]->value) || !array_key_exists(0, $children[$childName]->value)) { // UGLY HACK!!
                             $children[$childName]->value = array($childClone);
                         }
-                        $children[$childName]->value[] = $this->toHelionConfigValue($child);
+                        $children[$childName]->value[] = $this->toInnerHelionConfigValue($child);
                     } else {
-                        $children[$childName] = $this->toHelionConfigValue($child);
+                        $children[$childName] = $this->toInnerHelionConfigValue($child);
                     }
                 }
             }

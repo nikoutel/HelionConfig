@@ -7,7 +7,16 @@ use Nikoutel\HelionConfig\HelionConfigValue;
 class XML extends ConfigType implements ConfigTypeInterface
 {
     public function parseConfigString($configString) {
-        $simpleXMLElement = new \SimpleXMLElement($configString);
+        libxml_use_internal_errors(true);
+        try {
+            $simpleXMLElement = new \SimpleXMLElement($configString);
+        } catch (\Exception $e) {
+            $xmlError = ' - ';
+            foreach(libxml_get_errors() as $error) {
+                $xmlError .= $error->message;
+            }
+            throw new \UnexpectedValueException('XML format error! ' . $e->getMessage() . $xmlError);
+        }
         $helionConfigValue = $this->toHelionConfigValue($simpleXMLElement);
         return $helionConfigValue;
     }

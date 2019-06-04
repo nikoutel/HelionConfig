@@ -11,7 +11,8 @@
     },
     "require": {
         "ext-curl": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "ext-libxml": "*"
     },
     "require-dev": {
         "nikoutel/phpdebugr": "^1.1"

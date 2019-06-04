@@ -1,4 +1,20 @@
 <?php
+/**
+ *
+ * XML: XML configuration type parser
+ *
+ *
+ * @package HelionConfig
+ * @author Nikos Koutelidis nikoutel@gmail.com
+ * @copyright 2019 Nikos Koutelidis
+ * @license http://www.mozilla.org/MPL/2.0/ Mozilla Public License Version 2.0
+ *
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ */
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
@@ -6,6 +22,13 @@ use Nikoutel\HelionConfig\HelionConfigValue;
 
 class XML extends ConfigType implements ConfigTypeInterface
 {
+    /**
+     * Parses the XML configuration string and returns
+     * the equivalent Helion configuration value object
+     *
+     * @param string $configString
+     * @return HelionConfigValue
+     */
     public function parseConfigString($configString) {
         libxml_use_internal_errors(true);
         try {
@@ -21,12 +44,24 @@ class XML extends ConfigType implements ConfigTypeInterface
         return $helionConfigValue;
     }
 
+    /**
+     * Generates the Helion configuration value object
+     *
+     * @param \SimpleXMLElement $simpleXMLElement
+     * @return HelionConfigValue
+     */
     private function toHelionConfigValue(\SimpleXMLElement $simpleXMLElement) {
         $innerHelionConfigValueIn = $this->toInnerHelionConfigValue($simpleXMLElement);
         $helionConfigValue = new HelionConfigValue($this->configRootName, $innerHelionConfigValueIn);
         return $helionConfigValue;
     }
 
+    /**
+     * Generates the inner Helion configuration value object
+     *
+     * @param \SimpleXMLElement $simpleXMLElement
+     * @return HelionConfigValue
+     */
     private function toInnerHelionConfigValue(\SimpleXMLElement $simpleXMLElement) {
         $children = array();
         $attributes = array();

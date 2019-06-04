@@ -1,17 +1,45 @@
 <?php
-
+/**
+ *
+ * ArrayTrait: Array modification methods
+ *
+ *
+ * @package HelionConfig
+ * @author Nikos Koutelidis nikoutel@gmail.com
+ * @copyright 2019 Nikos Koutelidis
+ * @license http://www.mozilla.org/MPL/2.0/ Mozilla Public License Version 2.0
+ *
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ */
 
 namespace Nikoutel\HelionConfig;
 
 trait ArrayTrait
 {
-    public function castToArray($helionConfigValueObject) {
-        if (is_scalar($helionConfigValueObject)) {
-            return $helionConfigValueObject;
+    /**
+     * Casts a Helion configuration object to an array
+     *
+     * @param string|HelionConfigValue $helionConfigValue
+     * @return string|array
+     */
+    public function castToArray($helionConfigValue) {
+        if (is_scalar($helionConfigValue)) {
+            return $helionConfigValue;
         }
-        return array_map(array($this, 'castToArray'), array_filter((array)$helionConfigValueObject));
+        return array_map(array($this, 'castToArray'), array_filter((array)$helionConfigValue));
     }
 
+    /**
+     * Flattens an array
+     *
+     * @param array $helionConfigArray
+     * @param string $sectionPrefix
+     * @return array
+     */
     private function flattenArray($helionConfigArray, $sectionPrefix = '') {
         $sectionSeparator = SECTION_SEPARATOR;
         $helionConfigArrayFlatt = array();

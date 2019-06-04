@@ -52,7 +52,12 @@ class INI extends ConfigType implements ConfigTypeInterface
             if (is_array($leaf)) {
                 $value[$key] = $this->toHelionConfigValue($leaf, $key);
             } else {
-                $value[$key] = new HelionConfigValue($key, $leaf);
+                if (isset($iniArray[0])) {
+                    $keyName = $name . '.' . $key;
+                } else {
+                    $keyName = $key;
+                }
+                $value[$key] = new HelionConfigValue($keyName, $leaf);
             }
         }
         $helionConfigValue = new HelionConfigValue($name, $value);

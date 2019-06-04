@@ -10,7 +10,8 @@
         "psr-4": {"Nikoutel\\HelionConfig\\": "src/"}
     },
     "require": {
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "nikoutel/phpdebugr": "^1.1"

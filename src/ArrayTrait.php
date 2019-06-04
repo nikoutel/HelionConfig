@@ -3,8 +3,7 @@
 
 namespace Nikoutel\HelionConfig;
 
-
-trait arrayTrait
+trait ArrayTrait
 {
     public function castToArray($helionConfigValueObject) {
         if (is_scalar($helionConfigValueObject)) {

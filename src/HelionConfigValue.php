@@ -5,7 +5,8 @@ namespace Nikoutel\HelionConfig;
 
 final class HelionConfigValue
 {
-    use arrayTrait;
+    use ArrayTrait;
+
 
     public $name;
     public $value;

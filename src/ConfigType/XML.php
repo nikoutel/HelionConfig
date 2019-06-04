@@ -64,7 +64,11 @@ class XML extends ConfigType implements ConfigTypeInterface
                         if (!is_array($children[$childName]->value) || !array_key_exists(0, $children[$childName]->value)) { // UGLY HACK!!
                             $children[$childName]->value = array($childClone);
                         }
-                        $children[$childName]->value[] = $this->toInnerHelionConfigValue($child);
+                        $childConfigValue = $this->toInnerHelionConfigValue($child);
+                        $childConfigValue->name = $childConfigValue->name . (string)(count($children[$childName]->value));
+                        $children[$childName]->value[] = $childConfigValue;
+                        $children[$childName]->name = strstr($children[$childName]->name, '.', true) ?: $children[$childName]->name;
+                        $children[$childName]->value[0]->name = $children[$childName]->name . '.0';
                     } else {
                         $children[$childName] = $this->toInnerHelionConfigValue($child);
                     }

@@ -30,7 +30,7 @@ class JSON extends ConfigType implements ConfigTypeInterface
      * @return HelionConfigValue
      */
     public function parseConfigString($configString) {
-        $jsonElement = json_decode($configString);
+        $jsonElement = json_decode(utf8_encode($configString));
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \UnexpectedValueException('JSON error! ' . json_last_error_msg());
         }

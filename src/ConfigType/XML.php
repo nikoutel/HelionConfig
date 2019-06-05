@@ -96,14 +96,14 @@ class XML extends ConfigType implements ConfigTypeInterface
                     }
                     if (array_key_exists($childName, $children)) {
                         $childClone = clone $children[$childName];
-                        if (!is_array($children[$childName]->value) || !array_key_exists(0, $children[$childName]->value)) { // UGLY HACK!!
-                            $children[$childName]->value = array($childClone);
+                        if (!is_array($children[$childName]->helionConfigValue) || !array_key_exists(0, $children[$childName]->helionConfigValue)) { // UGLY HACK!!
+                            $children[$childName]->helionConfigValue = array($childClone);
                         }
                         $childConfigValue = $this->toInnerHelionConfigValue($child);
-                        $childConfigValue->name = $childConfigValue->name . (string)(count($children[$childName]->value));
-                        $children[$childName]->value[] = $childConfigValue;
-                        $children[$childName]->name = strstr($children[$childName]->name, '.', true) ?: $children[$childName]->name;
-                        $children[$childName]->value[0]->name = $children[$childName]->name . '.0';
+                        $childConfigValue->helionConfigName = $childConfigValue->helionConfigName . (string)(count($children[$childName]->helionConfigValue));
+                        $children[$childName]->helionConfigValue[] = $childConfigValue;
+                        $children[$childName]->helionConfigName = strstr($children[$childName]->helionConfigName, '.', true) ?: $children[$childName]->helionConfigName;
+                        $children[$childName]->helionConfigValue[0]->helionConfigName = $children[$childName]->helionConfigName . '.0';
                     } else {
                         $children[$childName] = $this->toInnerHelionConfigValue($child);
                     }

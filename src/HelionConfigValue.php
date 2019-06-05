@@ -26,17 +26,17 @@ final class HelionConfigValue
     /**
      * @var string
      */
-    public $name;
+    public $helionConfigName;
 
     /**
      * @var string|array
      */
-    public $value;
+    public $helionConfigValue;
 
     /**
      * @var null|array
      */
-    public $attributes;
+    public $helionConfigAttributes;
 
     /**
      * HelionConfigValue constructor
@@ -46,9 +46,9 @@ final class HelionConfigValue
      * @param null|array $attributes
      */
     public function __construct($name, $value, $attributes = null) {
-        $this->name = $name;
-        $this->value = $value;
-        $this->attributes = $attributes;
+        $this->helionConfigName = $name;
+        $this->helionConfigValue = $value;
+        $this->helionConfigAttributes = $attributes;
     }
 
     /**

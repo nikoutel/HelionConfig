@@ -44,11 +44,11 @@ trait ArrayTrait
         $sectionSeparator = SECTION_SEPARATOR;
         $helionConfigArrayFlatt = array();
         foreach ($helionConfigArray as $key => $value) {
-            if ($key === 'name') {
+            if ($key === 'helionConfigName') {
                 continue;
             }
             if (is_array($value)) {
-                if ($key === 'value') {
+                if ($key === 'helionConfigValue') {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix);
                 } else {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator);

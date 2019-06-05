@@ -91,16 +91,16 @@ class ConfigType
         $sectionSeparator = SECTION_SEPARATOR;
         $nameParts = explode($sectionSeparator, $name);
         foreach ($nameParts as $v) {
-            if (array_key_exists($v, $helionConfigValue->value)) {
-                $helionConfigValue = $helionConfigValue->value[$v];
+            if (array_key_exists($v, $helionConfigValue->helionConfigValue)) {
+                $helionConfigValue = $helionConfigValue->helionConfigValue[$v];
             } else {
                 return new HelionConfigValue('Error', "$v not found!");
             }
         }
-        if (is_array($helionConfigValue->value)) {
+        if (is_array($helionConfigValue->helionConfigValue)) {
             return $helionConfigValue;
         }
-        return $helionConfigValue->value;
+        return $helionConfigValue->helionConfigValue;
     }
 
 }

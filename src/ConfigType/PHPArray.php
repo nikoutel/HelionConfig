@@ -32,6 +32,9 @@ class PHPArray extends ConfigType implements ConfigTypeInterface
     public function parseConfigString($configString) {
         $configString = preg_replace('/(<\?php|<\?|\?>)/i', '', $configString);
         $phpArray = eval($configString);  // What do you mean eval is evil? I don't see any eval! Ok.. @todo, but don't tell anybody
+        if (!is_array($phpArray)) {
+            throw new \UnexpectedValueException('PHPArray format error!');
+        }
         $helionConfigValue = $this->toHelionConfigValue($phpArray, $this->configRootName);
         return $helionConfigValue;
     }

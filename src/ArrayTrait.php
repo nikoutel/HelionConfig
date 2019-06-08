@@ -30,7 +30,9 @@ trait ArrayTrait
         if (is_scalar($helionConfigValue)) {
             return $helionConfigValue;
         }
-        return array_map(array($this, 'castToArray'), array_filter((array)$helionConfigValue));
+        return array_map(array($this, 'castToArray'), array_filter((array)$helionConfigValue, function($value) {
+            return ($value !== null && $value !== false && $value !== '');
+        }));
     }
 
     /**

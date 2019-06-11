@@ -35,7 +35,16 @@ class Apache extends ConfigType implements ConfigTypeInterface
         $result = array();
         $block = array();
         $level = $lastLevel = 0;
+        $previousLine = '';
         foreach ($apacheConfigArray as $configLine) {
+            if (!preg_match('/^\s*#/', $configLine) && preg_match('/^\s*(.*)\s+\\\$/', $configLine, $configMatches)) { // Multiple lines
+                $previousLine .= $configMatches[1] . ' ';
+                continue;
+            }
+            if (!empty($previousLine)) {
+                $configLine = $previousLine . trim($configLine);
+                $previousLine = '';
+            }
             if (preg_match('/^\s*(\w+)(?:\s+(.*?)|)\s*$/', $configLine, $configMatches)) { // Property
                 if ($level === 0) {
                     $block[$configMatches[1]] = $configMatches[2];

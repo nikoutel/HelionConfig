@@ -36,6 +36,7 @@ class Apache extends ConfigType implements ConfigTypeInterface
         $block = array();
         $level = $lastLevel = 0;
         $previousLine = '';
+        $sectionName = array();
         foreach ($apacheConfigArray as $configLine) {
             if (!preg_match('/^\s*#/', $configLine) && preg_match('/^\s*(.*)\s+\\\$/', $configLine, $configMatches)) { // Multiple lines
                 $previousLine .= $configMatches[1] . ' ';
@@ -46,6 +47,9 @@ class Apache extends ConfigType implements ConfigTypeInterface
                 $previousLine = '';
             }
             if (preg_match('/^\s*(\w+)(?:\s+(.*?)|)\s*$/', $configLine, $configMatches)) { // Property
+                if (!isset($configMatches[2])) {
+                    throw new \UnexpectedValueException("Apache config format error!");
+                }
                 if ($level === 0) {
                     $block[$configMatches[1]] = $configMatches[2];
                     $result = $this->append($block, $result);
@@ -56,6 +60,10 @@ class Apache extends ConfigType implements ConfigTypeInterface
             }
             if (preg_match('/^\s*<(\w+)(?:\s+([^>]*)|\s*)>\s*$/', $configLine, $configMatches)) { // Section start
                 $level++;
+                if (!isset($configMatches[2])) {
+                    throw new \UnexpectedValueException("Apache config format error!");
+                }
+                $sectionName[] = $configMatches[1];
                 if ($level === $lastLevel) {
                     $section = array($configMatches[1] => array('@attributes' => $configMatches[2]));
                     if (!isset($blockChild)) {
@@ -83,6 +91,10 @@ class Apache extends ConfigType implements ConfigTypeInterface
                 $lastLevel = $level;
             }
             if (preg_match('/^\s*<\/(\w+)\s*>\s*$/', $configLine, $configMatches)) { // Section end
+                $previousSectionName = array_pop($sectionName);
+                if ($previousSectionName !== $configMatches[1]) {
+                    throw new \UnexpectedValueException("Apache config format error! Section '$configMatches[1]' not closed");
+                }
                 unset($blockChild);
                 $blockChild = &$blockParent[$level];
                 if ($level === 1) {

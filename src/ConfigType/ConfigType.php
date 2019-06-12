@@ -53,6 +53,8 @@ class ConfigType
             $configString = $this->getConfigString($configSrc);
         } catch (\ErrorException $e) {
             return new HelionConfigValue('Error', $e->getMessage());
+        } catch (\UnexpectedValueException $e) {
+            return new HelionConfigValue('Error', $e->getMessage());
         }
         try {
             $helionConfig = $this->parseConfigString($configString);
@@ -82,7 +84,7 @@ class ConfigType
             curl_setopt($curlSession, CURLOPT_FAILONERROR, true);
             if (isset($this->options['curlOptions'])) {
                 if (curl_setopt_array($curlSession, $this->options['curlOptions']) === false) {
-                    throw new \ErrorException('Error: Wrong curl options.');
+                    throw new \UnexpectedValueException('Error: Wrong curl options.');
                 }
             }
             $result = curl_exec($curlSession);

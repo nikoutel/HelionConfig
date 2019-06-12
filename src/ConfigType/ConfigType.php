@@ -38,6 +38,9 @@ class ConfigType
      */
     public function setOptions($options) {
         $this->options = $options;
+        if (isset($options['rootName'])) {
+            $this->configRootName = $options['rootName'];
+        }
     }
 
     /**

@@ -31,8 +31,17 @@ class XML extends ConfigType implements ConfigTypeInterface
      */
     public function parseConfigString($configString) {
         libxml_use_internal_errors(true);
+        if (isset($this->options['libxmlOptions'])) {
+            if (array_product(array_map("is_int", $this->options['libxmlOptions']))) {
+                $options = $this->bitmask($this->options['libxmlOptions']);
+            } else {
+                throw new \UnexpectedValueException('Error: Wrong libxml options.');
+            }
+        } else {
+            $options = 0;
+        }
         try {
-            $simpleXMLElement = new \SimpleXMLElement($configString);
+            $simpleXMLElement = new \SimpleXMLElement($configString, $options);
         } catch (\Exception $e) {
             $xmlError = ' - ';
             foreach (libxml_get_errors() as $error) {

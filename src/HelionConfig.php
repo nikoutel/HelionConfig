@@ -26,6 +26,19 @@ class HelionConfig
     private $configTypeNS = __NAMESPACE__ . '\ConfigType\\';
 
     /**
+     * @var array
+     */
+    private $options;
+
+    /**
+     * HelionConfig constructor.
+     * @param array $options
+     */
+    public function __construct(array $options = array()) {
+        $this->options = $options;
+    }
+
+    /**
      * Returns the configuration reader object
      *
      * @param $type
@@ -34,10 +47,18 @@ class HelionConfig
      * @throws \ReflectionException
      */
     public function getConfigReader($type) {
-        !defined('SECTION_SEPARATOR') && define('SECTION_SEPARATOR', '.');
+
+        if (isset($this->options['sectionSeparator'])) {
+            $sectionSeparator = $this->options['sectionSeparator'];
+        } else {
+            $sectionSeparator = '.';
+        }
+        !defined('SECTION_SEPARATOR') && define('SECTION_SEPARATOR', $sectionSeparator);
         if (in_array($type, $this->listConfigTypeOptions(true))) {
             $namespacedType = $this->configTypeNS . $type;
-            return new ConfigReader(new $namespacedType);
+            $configType = new $namespacedType;
+            $configType->setOptions($this->options);
+            return new ConfigReader($configType);
         } else {
             throw new \InvalidArgumentException("$type is not a valid ConfigType!");
         }

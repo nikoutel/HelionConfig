@@ -26,6 +26,19 @@ class ConfigType
      * @var string
      */
     protected $configRootName = 'configRoot';
+    /**
+     * @var
+     */
+    protected $options;
+
+
+    /**
+     * Setter for the options array
+     * @param $options
+     */
+    public function setOptions($options) {
+        $this->options = $options;
+    }
 
     /**
      * Returns the matching Helion configuration object

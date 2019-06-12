@@ -30,7 +30,7 @@ trait ArrayTrait
         if (is_scalar($helionConfigValue)) {
             return $helionConfigValue;
         }
-        return array_map(array($this, 'castToArray'), array_filter((array)$helionConfigValue, function($value) {
+        return array_map(array($this, 'castToArray'), array_filter((array)$helionConfigValue, function ($value) {
             return ($value !== null && $value !== false && $value !== '');
         }));
     }
@@ -40,23 +40,34 @@ trait ArrayTrait
      *
      * @param array $helionConfigArray
      * @param string $sectionPrefix
+     * @param bool $isAttribute
      * @return array
      */
-    private function flattenArray($helionConfigArray, $sectionPrefix = '') {
+    private function flattenArray($helionConfigArray, $sectionPrefix = '', $isAttribute = false) {
         $sectionSeparator = SECTION_SEPARATOR;
         $helionConfigArrayFlatt = array();
         foreach ($helionConfigArray as $key => $value) {
             if ($key === 'helionConfigName') {
                 continue;
             }
+            if ($key == 'helionConfigAttributes') {
+                $key = "@attribute";
+                $isAttribute = true;
+            }
             if (is_array($value)) {
                 if ($key === 'helionConfigValue') {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix);
+                } elseif ($key == 'helionConfigAttributes') {
+                    $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator, true);
                 } else {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator);
                 }
             } else {
-                $helionConfigArrayFlatt[rtrim($sectionPrefix, $sectionSeparator)] = $value;
+                if (!$isAttribute) {
+                    $helionConfigArrayFlatt[rtrim($sectionPrefix, $sectionSeparator)] = $value;
+                } else {
+                    $helionConfigArrayFlatt[rtrim($sectionPrefix . $key, $sectionSeparator)] = $value;
+                }
             }
         }
         return $helionConfigArrayFlatt;

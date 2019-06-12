@@ -123,4 +123,15 @@ class ConfigType
         return $helionConfigValue->helionConfigValue;
     }
 
+    /**
+     * @param array $bitmaskArray
+     * @return int
+     */
+    protected function bitmask(array $bitmaskArray) {
+        $bitmask = 0;
+        foreach ($bitmaskArray as $value) {
+            $bitmask |= $value;
+        }
+        return $bitmask;
+    }
 }

@@ -30,7 +30,16 @@ class JSON extends ConfigType implements ConfigTypeInterface
      * @return HelionConfigValue
      */
     public function parseConfigString($configString) {
-        $jsonElement = json_decode(utf8_encode($configString));
+        if (isset($this->options['jsonOptions'])) {
+            if (array_product(array_map("is_int", $this->options['jsonOptions']))) {
+                $options = $this->bitmask($this->options['jsonOptions']);
+            } else {
+                throw new \UnexpectedValueException('Error: Wrong json options.');
+            }
+        } else {
+            $options = 0;
+        }
+        $jsonElement = json_decode($configString, false, 512, $options);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new \UnexpectedValueException('JSON error! ' . json_last_error_msg());
         }

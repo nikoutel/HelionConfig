@@ -19,6 +19,7 @@
 namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
+use Nikoutel\Debugr\Debugr;
 
 class ConfigType
 {
@@ -107,17 +108,34 @@ class ConfigType
      *
      * @param string $name
      * @param HelionConfigValue $helionConfigValue
-     * @return string|HelionConfigValue
+     * @return string|array|HelionConfigValue
      */
     public function getConfigValue($name, HelionConfigValue $helionConfigValue) {
 
         $sectionSeparator = SECTION_SEPARATOR;
         $nameParts = explode($sectionSeparator, $name);
-        foreach ($nameParts as $v) {
-            if (array_key_exists($v, $helionConfigValue->helionConfigValue)) {
-                $helionConfigValue = $helionConfigValue->helionConfigValue[$v];
+        foreach ($nameParts as $namePartValue) {
+            $nextNamePartValue = next($nameParts);
+            if ($namePartValue !== '@attributes') {
+                if (array_key_exists($namePartValue, $helionConfigValue->helionConfigValue)) {
+                    $helionConfigValue = $helionConfigValue->helionConfigValue[$namePartValue];
+                } else {
+                    return new HelionConfigValue('Error', "$namePartValue not found!");
+                }
             } else {
-                return new HelionConfigValue('Error', "$v not found!");
+                if ($nextNamePartValue) {
+                    if (array_key_exists($nextNamePartValue, $helionConfigValue->helionConfigAttributes)) {
+                        return $helionConfigValue->helionConfigAttributes[$nextNamePartValue];
+                    } else {
+                        return new HelionConfigValue('Error', "$nextNamePartValue not found!");
+                    }
+                } else {
+                    if (isset($helionConfigValue->helionConfigAttributes)) {
+                        return $helionConfigValue->helionConfigAttributes;
+                    } else {
+                        return new HelionConfigValue('Error', "@attributes  not found!");
+                    }
+                }
             }
         }
         if (is_array($helionConfigValue->helionConfigValue)) {

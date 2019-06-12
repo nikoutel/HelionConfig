@@ -26,6 +26,22 @@ class ConfigType
      * @var string
      */
     protected $configRootName = 'configRoot';
+    /**
+     * @var
+     */
+    protected $options;
+
+
+    /**
+     * Setter for the options array
+     * @param $options
+     */
+    public function setOptions($options) {
+        $this->options = $options;
+        if (isset($options['rootName'])) {
+            $this->configRootName = $options['rootName'];
+        }
+    }
 
     /**
      * Returns the matching Helion configuration object
@@ -39,6 +55,8 @@ class ConfigType
         try {
             $configString = $this->getConfigString($configSrc);
         } catch (\ErrorException $e) {
+            return new HelionConfigValue('Error', $e->getMessage());
+        } catch (\UnexpectedValueException $e) {
             return new HelionConfigValue('Error', $e->getMessage());
         }
         try {
@@ -65,8 +83,13 @@ class ConfigType
             $curlSession = curl_init();
             curl_setopt($curlSession, CURLOPT_URL, $configSrc);
             curl_setopt($curlSession, CURLOPT_BINARYTRANSFER, true);
-            curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true); //@todo allow additional external CURL options
+            curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curlSession, CURLOPT_FAILONERROR, true);
+            if (isset($this->options['curlOptions'])) {
+                if (curl_setopt_array($curlSession, $this->options['curlOptions']) === false) {
+                    throw new \UnexpectedValueException('Error: Wrong curl options.');
+                }
+            }
             $result = curl_exec($curlSession);
             if (curl_error($curlSession)) {
                 throw new \ErrorException(curl_error($curlSession));
@@ -103,4 +126,15 @@ class ConfigType
         return $helionConfigValue->helionConfigValue;
     }
 
+    /**
+     * @param array $bitmaskArray
+     * @return int
+     */
+    protected function bitmask(array $bitmaskArray) {
+        $bitmask = 0;
+        foreach ($bitmaskArray as $value) {
+            $bitmask |= $value;
+        }
+        return $bitmask;
+    }
 }

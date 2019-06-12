@@ -61,7 +61,7 @@ class XML extends ConfigType implements ConfigTypeInterface
      */
     private function toHelionConfigValue(\SimpleXMLElement $simpleXMLElement) {
         $innerHelionConfigValueIn = $this->toInnerHelionConfigValue($simpleXMLElement);
-        $helionConfigValue = new HelionConfigValue($this->configRootName, $innerHelionConfigValueIn);
+        $helionConfigValue = new HelionConfigValue($this->configRootName, array((string)$simpleXMLElement->getName() => $innerHelionConfigValueIn));
         return $helionConfigValue;
     }
 
@@ -124,6 +124,7 @@ class XML extends ConfigType implements ConfigTypeInterface
         } else {
             $value = $text;
         }
+        if (empty($attributes)) $attributes = null;
         $returnVal = new HelionConfigValue($name, $value, $attributes);
         return $returnVal;
     }

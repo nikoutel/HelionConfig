@@ -57,7 +57,7 @@ class Conf extends ConfigType implements ConfigTypeInterface
                 $configLine = $previousLine . trim($configLine);
                 $previousLine = '';
             }
-            if (preg_match("/^\s*([\w-]+)\s*" . $symbols['equals'] . "\s*((.*?)|)\s*$/", $configLine, $configMatches)) {
+            if (preg_match("/^\s*(.*?)\s*" . $symbols['equals'] . "\s*((.*?)|)\s*$/", $configLine, $configMatches)) {
                 if (!isset($section)) {
                     $confArrayResult[$configMatches[1]] = $configMatches[2];
                 } else {

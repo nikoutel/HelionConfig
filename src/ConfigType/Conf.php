@@ -28,9 +28,9 @@ class Conf extends ConfigType implements ConfigTypeInterface
     private $symbolTable = array(
         'sectionStart' => "[",
         'sectionEnd' => "]",
-        'equals' => ":",
+        'equals' => "=",
         'multiLineSeparator' => "\\",
-        'commentStart' => "#",
+        'commentStart' => ";",
     );
 
     /**

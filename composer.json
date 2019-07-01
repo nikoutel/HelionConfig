@@ -1,6 +1,6 @@
 {
     "name": "nikoutel/helionconfig",
-    "description": "A versatile configuration parser. Can handle multiple configuration types.",
+    "description": "A versatile configuration parser. Can handle multiple configuration formats.",
     "keywords": ["configuration", "parser", "INI", "XML", "JSON", "apache", "PHP arrays"],
     "license": "MPL-2.0",
     "authors": [

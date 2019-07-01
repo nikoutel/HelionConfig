@@ -50,14 +50,14 @@ trait ArrayTrait
             if ($key === 'helionConfigName') {
                 continue;
             }
-            if ($key == 'helionConfigAttributes') {
+            if ($key === 'helionConfigAttributes') {
                 $key = "@attribute";
                 $isAttribute = true;
             }
             if (is_array($value)) {
                 if ($key === 'helionConfigValue') {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix);
-                } elseif ($key == 'helionConfigAttributes') {
+                } elseif ($key === 'helionConfigAttributes') {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator, true);
                 } else {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator);

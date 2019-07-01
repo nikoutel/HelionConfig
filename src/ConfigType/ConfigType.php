@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * ConfigTypeOptions: Enumerates the 'configuration type options'
+ * ConfigType: Enumerates the 'configuration type options'
  *
  *
  * @package HelionConfig
@@ -18,7 +18,7 @@
 
 namespace Nikoutel\HelionConfig\ConfigType;
 
-final Class ConfigTypeOptions
+final Class ConfigType
 {
 
     const XML = 'XML';

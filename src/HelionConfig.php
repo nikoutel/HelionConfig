@@ -54,7 +54,7 @@ class HelionConfig
             $sectionSeparator = '.';
         }
         !defined('SECTION_SEPARATOR') && define('SECTION_SEPARATOR', $sectionSeparator);
-        if (in_array($type, $this->listConfigTypeOptions(true))) {
+        if (in_array($type, $this->listConfigTypes(true))) {
             $namespacedType = $this->configTypeNS . $type;
             $configType = new $namespacedType;
             $configType->setOptions($this->options);
@@ -71,8 +71,8 @@ class HelionConfig
      * @return array
      * @throws \ReflectionException
      */
-    public function listConfigTypeOptions($listValues = false) {
-        $rf = new \ReflectionClass($this->configTypeNS . 'ConfigTypeOptions');
+    public function listConfigTypes($listValues = false) {
+        $rf = new \ReflectionClass($this->configTypeNS . 'ConfigType');
         return ($listValues) ? $rf->getConstants() : array_keys($rf->getConstants());
     }
 }

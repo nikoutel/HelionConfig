@@ -20,7 +20,7 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
 
-class Apache extends ConfigType implements ConfigTypeInterface
+class Apache extends AbstractConfigType implements ConfigTypeInterface
 {
     /**
      * Parses the Apache configuration string and returns

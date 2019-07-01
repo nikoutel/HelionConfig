@@ -20,7 +20,7 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
 
-class Conf extends ConfigType implements ConfigTypeInterface
+class Conf extends AbstractConfigType implements ConfigTypeInterface
 {
     /**
      * @var array

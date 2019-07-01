@@ -20,7 +20,7 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
 
-class XML extends ConfigType implements ConfigTypeInterface
+class XML extends AbstractConfigType implements ConfigTypeInterface
 {
     /**
      * Parses the XML configuration string and returns

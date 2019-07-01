@@ -20,7 +20,7 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
 
-class PHPArray extends ConfigType implements ConfigTypeInterface
+class PHPArray extends AbstractConfigType implements ConfigTypeInterface
 {
     /**
      * Parses the PHPArray configuration string and returns

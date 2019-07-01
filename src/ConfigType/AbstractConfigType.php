@@ -19,9 +19,8 @@
 namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
-use Nikoutel\Debugr\Debugr;
 
-class ConfigType
+abstract class AbstractConfigType
 {
     /**
      * @var string

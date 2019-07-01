@@ -20,7 +20,7 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
 
-class INI extends ConfigType implements ConfigTypeInterface
+class INI extends AbstractConfigType implements ConfigTypeInterface
 {
 
     /**

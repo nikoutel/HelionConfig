@@ -20,7 +20,7 @@ namespace Nikoutel\HelionConfig\ConfigType;
 
 use Nikoutel\HelionConfig\HelionConfigValue;
 
-class JSON extends ConfigType implements ConfigTypeInterface
+class JSON extends AbstractConfigType implements ConfigTypeInterface
 {
     /**
      * Parses the JSON configuration string and returns

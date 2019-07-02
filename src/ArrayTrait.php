@@ -57,7 +57,7 @@ trait ArrayTrait
             if (is_array($value)) {
                 if ($key === 'helionConfigValue') {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix);
-                } elseif ($key === 'helionConfigAttributes') {
+                } elseif ($key === 'helionConfigAttributes' || $key === '@attribute') {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator, true);
                 } else {
                     $helionConfigArrayFlatt = $helionConfigArrayFlatt + $this->flattenArray($value, $sectionPrefix . $key . $sectionSeparator);

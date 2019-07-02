@@ -1,13 +1,24 @@
 {
     "name": "nikoutel/helionconfig",
+    "description": "A versatile configuration parser. Can handle multiple configuration formats.",
+    "keywords": ["configuration", "parser", "INI", "XML", "JSON", "apache", "PHP arrays"],
+    "license": "MPL-2.0",
     "authors": [
         {
             "name": "Nikos Koutelidis",
             "email": "nikoutel@gmail.com"
         }
     ],
-    "require": {},
     "autoload": {
         "psr-4": {"Nikoutel\\HelionConfig\\": "src/"}
+    },
+    "require": {
+        "ext-curl": "*",
+        "ext-simplexml": "*",
+        "ext-libxml": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "nikoutel/phpdebugr": "^1.1"
     }
 }

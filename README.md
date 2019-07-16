@@ -7,8 +7,8 @@ HelionConfig
 
 ## Usage ##
 ```php
-$helionConfig = new HelionConfig($options);
-$configReader = $helionConfig->getConfigReader(ConfigType::XML);
+$helionConfig = new HelionConfig();
+$configReader = $helionConfig->getConfigReader(ConfigType::XML, $options);
 $configSrc = 'file.xml';
 $config = $configReader->getConfig($configSrc);
 ```
@@ -45,7 +45,7 @@ The configuration source could be a file path, URL, or a configuration string.
 
 ***options*** *(optional)*
   
-An options array can be passed to the constructor of `HelionConfig`.  
+An options array can be passed to the `getConfigReader` method of `HelionConfig`.  
 
 Array elements:  
 * `rootName`: name of the root object element  -  *Default: `configRoot`*  
@@ -145,8 +145,8 @@ port=143
 ```php
 $configSrc = 'db.ini';
 
-$helionConfig = new HelionConfig($options);
-$configReader = $helionConfig->getConfigReader(ConfigType::INI);
+$helionConfig = new HelionConfig();
+$configReader = $helionConfig->getConfigReader(ConfigType::INI, $options);
 $config = $configReader->getConfig($configSrc);
 
 $port = $configReader->getConfigValue('database.port', $config);
@@ -226,8 +226,8 @@ $configSrc = '{ "isbn": "0-13-110362-8",
                  "title": "The C Programming Language",
                  "category": ["Programming", "Technology"]}';
 
-$helionConfig = new HelionConfig($options);
-$configReader = $helionConfig->getConfigReader(ConfigType::JSON);
+$helionConfig = new HelionConfig();
+$configReader = $helionConfig->getConfigReader(ConfigType::JSON, $options);
 
 $array = $configReader->getConfig($configSrc)->asArrayFlat();
 ```
@@ -269,8 +269,8 @@ $options = array(
     )
 );
 
-$helionConfig = new HelionConfig($options);
-$configReader = $helionConfig->getConfigReader(ConfigType::CONF);
+$helionConfig = new HelionConfig();
+$configReader = $helionConfig->getConfigReader(ConfigType::CONF, $options);
 $config = $configReader->getConfig('/etc/mysql/my.cnf');
 
 // get only the 'mysqld' section

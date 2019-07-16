@@ -31,23 +31,16 @@ class HelionConfig
     private $options;
 
     /**
-     * HelionConfig constructor.
-     * @param array $options
-     */
-    public function __construct(array $options = array()) {
-        $this->options = $options;
-    }
-
-    /**
      * Returns the configuration reader object
      *
      * @param $type
+     * @param array $options
      * @return ConfigReader
      * @throws \InvalidArgumentException
      * @throws \ReflectionException
      */
-    public function getConfigReader($type) {
-
+    public function getConfigReader($type, array $options = array()) {
+        $this->options = $options;
         if (isset($this->options['sectionSeparator'])) {
             $sectionSeparator = $this->options['sectionSeparator'];
         } else {

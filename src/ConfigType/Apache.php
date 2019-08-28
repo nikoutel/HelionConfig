@@ -37,6 +37,7 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
         $level = $lastLevel = 0;
         $previousLine = '';
         $sectionName = array();
+        $blockChild = array();
         foreach ($apacheConfigArray as $configLine) {
             if (!preg_match('/^\s*#/', $configLine) && preg_match('/^\s*(.*)\s+\\\$/', $configLine, $configMatches)) { // Multiple lines
                 $previousLine .= $configMatches[1] . ' ';
@@ -55,7 +56,9 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
                     $result = $this->append($block, $result);
                     $block = array();
                 } else {
-                    $blockChild[$configMatches[1]] = $configMatches[2];
+                    $blockIn[$configMatches[1]] = $configMatches[2];
+                    $blockChild = $this->append($blockIn, $blockChild);
+                    $blockIn = array();
                 }
             }
             if (preg_match('/^\s*<(\w+)(?:\s+([^>]*)|\s*)>\s*$/', $configLine, $configMatches)) { // Section start

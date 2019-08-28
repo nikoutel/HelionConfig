@@ -55,7 +55,19 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
                     $result = $this->append($block, $result);
                     $block = array();
                 } else {
-                    $blockChild[$configMatches[1]] = $configMatches[2];
+                    // Check if $blockChild[$configMatches[1] already exists
+                    if (isset($blockChild[$configMatches[1]])) {
+                        // Check if $blockChild[$configMatches[1]] is string
+                        if (is_string($blockChild[$configMatches[1]])) {
+                            // Convert the string to an array, so it can handle multiple values
+                            $blockChild[$configMatches[1]] = [$blockChild[$configMatches[1]]];
+                        }
+                        // Add the new value to the array
+                        $blockChild[$configMatches[1]][] = $configMatches[2];
+                    } else {
+                        // $blockChild[$configMatches[1]] does not exist yet, add the new value as a string
+                        $blockChild[$configMatches[1]] = $configMatches[2];
+                    }
                 }
             }
             if (preg_match('/^\s*<(\w+)(?:\s+([^>]*)|\s*)>\s*$/', $configLine, $configMatches)) { // Section start

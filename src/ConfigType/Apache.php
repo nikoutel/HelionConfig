@@ -104,6 +104,7 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
                     $result = $this->append($block, $result);
                     $block = array();
                 }
+                $lastLevel = $level;
                 $level--;
             }
         }

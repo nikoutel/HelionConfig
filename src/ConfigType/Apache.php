@@ -38,6 +38,7 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
         $previousLine = '';
         $sectionName = array();
         $blockChild = array();
+        $noValueDirectives = array('SSLRequireSSL','AuthnCacheEnable');
         foreach ($apacheConfigArray as $configLine) {
             if (!preg_match('/^\s*#/', $configLine) && preg_match('/^\s*(.*)\s+\\\$/', $configLine, $configMatches)) { // Multiple lines
                 $previousLine .= $configMatches[1] . ' ';
@@ -49,7 +50,11 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
             }
             if (preg_match('/^\s*(\w+)(?:\s+(.*?)|)\s*$/', $configLine, $configMatches)) { // Property
                 if (!isset($configMatches[2])) {
-                    throw new \UnexpectedValueException("Apache config format error!");
+                    if (in_array($configMatches[1], $noValueDirectives)) {
+                        $configMatches[2] = true;
+                    } else {
+                        throw new \UnexpectedValueException("Apache config format error!");
+                    }
                 }
                 if ($level === 0) {
                     $block[$configMatches[1]] = $configMatches[2];

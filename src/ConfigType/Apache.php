@@ -46,7 +46,7 @@ class Apache extends AbstractConfigType implements ConfigTypeInterface
                 $configLine = $previousLine . trim($configLine);
                 $previousLine = '';
             }
-            if (preg_match('/^\s*(\w+)(?:\s+(.*?)|)\s*$/', $configLine, $configMatches)) { // Property
+            if (preg_match('/^\s*(\w+)(?:\s*(.*?)|)\s*$/', $configLine, $configMatches)) { // Property
                 if (!isset($configMatches[2])) {
                     throw new \UnexpectedValueException("Apache config format error!");
                 }
